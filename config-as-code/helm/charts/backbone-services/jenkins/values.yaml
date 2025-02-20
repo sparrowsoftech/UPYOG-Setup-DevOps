@@ -476,7 +476,7 @@ master:
                   cps {
                       script("""library 'ci-libs'
               {{- if (eq $job.name "central-instance") }}            
-              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
+              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'master', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
@@ -490,7 +490,7 @@ master:
                 disabled(false)
               }
               {{- else }}
-              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'UPYOG-Bootcamp-jenkins', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
+              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'master', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }

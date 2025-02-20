@@ -411,12 +411,12 @@ master:
                   scm:
                     git:
                       credentialsId: "git_read"
-                      remote: "git@github.com:egovernments/CIOps.git"
+                      remote: "git@github.com:sparrowsoftech/CIOps-devanshu.git"
                       traits:
                       - "gitBranchDiscovery"
       system-message: | 
         jenkins:                                
-          systemMessage: "Welcome to EGOV CI CD server.  This Jenkins is configured and managed as code."    
+          systemMessage: "Welcome to NIUA Internal Tech CI CD server.  This Jenkins is configured and managed as code."    
 
       git-credentials: | 
         credentials:
@@ -475,15 +475,30 @@ master:
                 definition {
                   cps {
                       script("""library 'ci-libs'
-              
-              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'release', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
+              {{- if (eq $job.name "central-instance") }}            
+              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
                 disabled(false)
-              }     
+              }
+              {{- else if (eq $job.name "bootcamp") }}            
+              deployer(repo:'git@github.com:nikhilmulinti-egov/DIGIT-DevOps.git', branch: 'DIGIT-Bootcamp', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
+                      sandbox() 
+                    }
+                }
+                disabled(false)
+              }
+              {{- else }}
+              deployer(repo:'git@github.com:sparrowsoftech/UPYOG-Setup-DevOps.git', branch: 'UPYOG-Bootcamp-jenkins', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
+                      sandbox() 
+                    }
+                }
+                disabled(false)
+              }  
+              {{- end }}
+   
           {{- end }}
-
               
     # Ignored if securityRealm is defined in master.JCasC.configScripts and
     # ignored if master.enableXmlConfig=true as master.securityRealm takes precedence
@@ -855,7 +870,7 @@ networkPolicy:
 ## Install Default RBAC roles and bindings
 rbac:
   create: true
-  readSecrets: false
+  readSecrets: true
 
 serviceAccount:
   create: true

@@ -3,5 +3,7 @@ creation_rules:
         # upon creation of a file that matches the pattern *dev.yaml,
         # KMS set A is used
         # eGOV Internal ------------------------------------------------------------------------------------------------------------- #
-        - path_regex: environments/upyog-demo\-secrets\.yaml$
+        - path_regex: environments/qa\-secrets\.yaml$
           kms: 'arn:aws:kms:ap-south-1:970547353696:key/47423382-d1ac-443b-8c4e-0b07abd9e2d7'
+        - path_regex: environments/ci\-secrets\.yaml$
+          kms: 'arn:aws:kms:ap-south-1:970547353696:key/8bd945bc-f0f3-4942-a88d-6eee1cf38d7f'
